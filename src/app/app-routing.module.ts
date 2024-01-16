@@ -18,6 +18,9 @@ const routes: Routes =
       loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
     },
     {
+      path: 'status',
+      loadChildren: () => import('./status/status.module').then(m => m.StatusModule)
+    }, {
       path: '**',
       redirectTo: DEFAULT_PATH
     }
