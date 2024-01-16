@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NavigationComponent} from './navigation/navigation.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -8,7 +9,8 @@ import {NavigationComponent} from './navigation/navigation.component';
     NavigationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   exports: [
     NavigationComponent
