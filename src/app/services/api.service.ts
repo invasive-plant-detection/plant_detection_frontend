@@ -1,19 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {PredictionResponseModel} from "../model/prediction-response.model";
+import {catchError, Observable, throwError} from "rxjs";
 import {HealthResponseModel} from "../model/health-response.model";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ApiService {
 
-  private readonly API_URL = 'http://localhost:8080/';
+    private readonly API_URL = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
-  healthCheck(): Observable<HealthResponseModel> {
-    return this.http.get<HealthResponseModel>(this.API_URL + 'actuator/health');
-  }
+    healthCheck(): Observable<HealthResponseModel> {
+        return this.http.get<HealthResponseModel>(this.API_URL + 'actuator/health').pipe(
+            catchError(error => {
+                return throwError(() => error)
+            }));
+    }
 }
