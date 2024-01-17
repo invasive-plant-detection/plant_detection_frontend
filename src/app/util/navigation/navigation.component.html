@@ -5,9 +5,10 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="/predict">Predict</a>
-      <a mat-list-item href="/about">About</a>
-      <a mat-list-item href="/status">Status</a>
+      <a mat-list-item href="/">Home <mat-icon fontIcon="home"></mat-icon></a>
+      <a mat-list-item href="/predict">Predict <mat-icon fontIcon="search"></mat-icon></a>
+      <a mat-list-item href="/about">About <mat-icon fontIcon="travel_explore"></mat-icon></a>
+      <a mat-list-item href="/status">Status <mat-icon fontIcon="cruelty_free"></mat-icon></a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
