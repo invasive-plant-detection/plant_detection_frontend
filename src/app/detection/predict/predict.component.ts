@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {LocationService} from "../../services/location.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-predict',
@@ -8,7 +9,7 @@ import {LocationService} from "../../services/location.service";
   styleUrl: './predict.component.css'
 })
 export class PredictComponent implements OnInit {
-  constructor(private apiService: ApiService, private locationService: LocationService) {
+  constructor(private apiService: ApiService, private locationService: LocationService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -17,6 +18,6 @@ export class PredictComponent implements OnInit {
     });
     this.locationService.getCurrentLocation().then(data => {
       console.log(data);
-    });
+    }, error => this._snackBar.open(error.message, 'Close'));
   }
 }
