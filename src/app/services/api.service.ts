@@ -3,13 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {HealthResponseModel} from "../model/health-response.model";
 import {ObservationModel} from "../model/observation.model";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
 
-    private readonly API_URL = 'http://localhost:8080/';
+    private readonly API_URL = environment.backendUrl;
 
     constructor(private http: HttpClient) {
     }
