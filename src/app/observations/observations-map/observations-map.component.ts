@@ -13,11 +13,13 @@ import {CoordinatesModel} from "../../model/coordinates.model";
 export class ObservationsMapComponent implements OnInit {
     observations: ObservationModel[] = [];
     private map!: L.Map;
+    private icon!: L.Icon;
 
     constructor(private apiService: ApiService, private locationService: LocationService) { }
 
     ngOnInit(): void {
         this.initMap().then(() => {});
+        this.defineIcon();
     }
 
     async initMap(): Promise<void> {
@@ -59,9 +61,21 @@ export class ObservationsMapComponent implements OnInit {
 
     private addObservationsToMap(): void {
         this.observations.forEach(observation => {
-            L.marker([observation.latitude, observation.longitude])
+            L.marker([observation.latitude, observation.longitude], { icon: this.icon })
                 .addTo(this.map)
                 .bindPopup(`Prediction: ${observation.prediction}`);
+        });
+    }
+
+    private defineIcon(): void {
+        const leafletImagesUrl = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/';
+        this.icon = L.icon({
+            iconUrl: `${leafletImagesUrl}marker-icon.png`,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: `${leafletImagesUrl}marker-shadow.png`,
+            shadowSize: [41, 41]
         });
     }
 }
