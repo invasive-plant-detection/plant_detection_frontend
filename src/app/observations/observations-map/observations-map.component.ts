@@ -3,6 +3,7 @@ import {ApiService} from "../../services/api.service";
 import {ObservationModel} from "../../model/observation.model";
 import * as L from 'leaflet';
 import {LocationService} from "../../services/location.service";
+import {CoordinatesModel} from "../../model/coordinates.model";
 
 @Component({
     selector: 'app-observations-map',
@@ -21,7 +22,7 @@ export class ObservationsMapComponent implements OnInit {
 
     async initMap(): Promise<void> {
         try {
-            const data = await this.locationService.getCurrentLocation();
+            const data = await this.getUserCoordinates();
             this.map = L.map('map').setView([data.latitude, data.longitude], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -33,6 +34,17 @@ export class ObservationsMapComponent implements OnInit {
         } catch (error) {
             console.error('Failed to initialize the map:', error);
         }
+    }
+
+    async getUserCoordinates(): Promise<CoordinatesModel> {
+        let data;
+        try {
+            data = await this.locationService.getCurrentLocation();
+        } catch (error) {
+            console.error('Error obtaining current location:', error);
+            data = { latitude: 47.49995, longitude: 8.72413 };
+        }
+        return data;
     }
 
     loadObservations(): void {
