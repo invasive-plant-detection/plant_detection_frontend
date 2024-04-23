@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PredictComponent } from './predict/predict.component';
 import {RouterModule, Routes} from "@angular/router";
 import {MatCardModule} from "@angular/material/card";
+import { CameraComponent } from './camera/camera.component';
 
 @NgModule({
   declarations: [
-    PredictComponent
+    PredictComponent,
+    CameraComponent
   ],
   imports: [
     CommonModule,

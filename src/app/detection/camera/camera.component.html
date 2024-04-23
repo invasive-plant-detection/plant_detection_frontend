@@ -1,0 +1,8 @@
+<video #videoElement width="640" height="480" autoplay muted playsinline *ngIf="showVideo"></video>
+<div *ngIf="!showVideo">
+    <img [src]="'data:image/png;base64,' + predictionResult?.base64Image" alt="Captured Image">
+    <p>{{ predictionResult?.instruction }}</p>
+    <button (click)="resetCamera()">Take Another Picture</button>
+</div>
+<button *ngIf="showVideo" (click)="flipCamera()">Flip Camera</button>
+<button *ngIf="showVideo" (click)="predict()">Capture Screenshot</button>
