@@ -61,9 +61,16 @@ export class ObservationsMapComponent implements OnInit {
 
     private addObservationsToMap(): void {
         this.observations.forEach(observation => {
+            const popupContent = `
+            <div>
+                <img src="data:image/jpeg;base64,${observation.image}" alt="Observation" style="width:100%;">
+                <p>${observation.prediction}</p>
+            </div>
+        `;
+
             L.marker([observation.latitude, observation.longitude], { icon: this.icon })
                 .addTo(this.map)
-                .bindPopup(`Prediction: ${observation.prediction}`);
+                .bindPopup(popupContent);
         });
     }
 
