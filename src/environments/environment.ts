@@ -1,3 +1,3 @@
 export const environment = {
-    backendUrl: 'http://localhost:8080/'
+    backendUrl: 'https://plant-detection-backend-36530ae76e5b.herokuapp.com/'
 };
