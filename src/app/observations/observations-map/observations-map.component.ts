@@ -13,31 +13,35 @@ export class ObservationsMapComponent implements OnInit {
     observations: ObservationModel[] = [];
     private map!: L.Map;
 
-    constructor(private apiService: ApiService, private locationService: LocationService) {
-    }
+    constructor(private apiService: ApiService, private locationService: LocationService) { }
 
     ngOnInit(): void {
         this.initMap();
-        this.loadObservations();
     }
 
-    loadObservations(): void {
-        this.apiService.getObservations().subscribe((value) => {
-            this.observations = value;
-            this.addObservationsToMap();
-        }, error => {
-            console.error(error);
-        });
-    }
-
-    initMap(): void {
-        this.locationService.getCurrentLocation().then(data => {
+    async initMap(): Promise<void> {
+        try {
+            const data = await this.locationService.getCurrentLocation();
             this.map = L.map('map').setView([data.latitude, data.longitude], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© OpenStreetMap contributors'
             }).addTo(this.map);
+
+            this.loadObservations();
+        } catch (error) {
+            console.error('Failed to initialize the map:', error);
+        }
+    }
+
+    loadObservations(): void {
+        this.apiService.getObservations().subscribe({
+            next: (values: ObservationModel[]) => {
+                this.observations = values;
+                this.addObservationsToMap();
+            },
+            error: (error) => console.error(error)
         });
     }
 

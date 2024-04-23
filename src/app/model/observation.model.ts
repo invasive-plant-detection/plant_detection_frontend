@@ -1,5 +1,5 @@
 export interface ObservationModel {
-    predictionId: number;
+    predictionId: string;
     latitude: number;
     longitude: number;
     image: string;
