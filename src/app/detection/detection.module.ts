@@ -4,6 +4,8 @@ import { PredictComponent } from './predict/predict.component';
 import {RouterModule, Routes} from "@angular/router";
 import {MatCardModule} from "@angular/material/card";
 import { CameraComponent } from './camera/camera.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { CameraComponent } from './camera/camera.component';
   imports: [
     CommonModule,
     RouterModule.forChild([{path: '', component: PredictComponent}]),
-    MatCardModule
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class DetectionModule { }

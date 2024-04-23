@@ -1,8 +1,18 @@
 <video #videoElement width="640" height="480" autoplay muted playsinline *ngIf="showVideo"></video>
-<div *ngIf="!showVideo">
-    <img [src]="'data:image/png;base64,' + predictionResult?.base64Image" alt="Captured Image">
-    <p>{{ predictionResult?.instruction }}</p>
-    <button (click)="resetCamera()">Take Another Picture</button>
+
+<mat-card *ngIf="!showVideo">
+    <img mat-card-image [src]="'data:image/png;base64,' + predictionResult?.base64Image" alt="Captured Image">
+    <mat-card-content>
+        <p>{{ predictionResult?.instruction }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="resetCamera()">Take Another Picture</button>
+    </mat-card-actions>
+</mat-card>
+
+<div *ngIf="showVideo" class="video-controls">
+    <button mat-icon-button (click)="flipCamera()" aria-label="Flip camera">
+        <mat-icon>flip_camera_ios</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="predict()">Capture Screenshot</button>
 </div>
-<button *ngIf="showVideo" (click)="flipCamera()">Flip Camera</button>
-<button *ngIf="showVideo" (click)="predict()">Capture Screenshot</button>
