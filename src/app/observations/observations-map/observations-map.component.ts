@@ -17,7 +17,7 @@ export class ObservationsMapComponent implements OnInit {
     constructor(private apiService: ApiService, private locationService: LocationService) { }
 
     ngOnInit(): void {
-        this.initMap();
+        this.initMap().then(() => {});
     }
 
     async initMap(): Promise<void> {
