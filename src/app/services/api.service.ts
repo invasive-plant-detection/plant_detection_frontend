@@ -5,6 +5,7 @@ import {HealthResponseModel} from "../model/health-response.model";
 import {ObservationModel} from "../model/observation.model";
 import {environment} from "../../environments/environment";
 import {PredictionResponseModel} from "../model/prediction-response.model";
+import {PredictionRequestModel} from "../model/prediction-request.model";
 
 @Injectable({
     providedIn: 'root'
@@ -30,9 +31,8 @@ export class ApiService {
             }));
     }
 
-    predict(image: string): Observable<PredictionResponseModel> {
-        const body = { base64Image: image };
-        return this.http.post<PredictionResponseModel>(this.API_URL + 'predict', body).pipe(
+    predict(request: PredictionRequestModel): Observable<PredictionResponseModel> {
+        return this.http.post<PredictionResponseModel>(this.API_URL + 'predict', request).pipe(
             catchError(error => {
                 console.error('Error in prediction:', error);
                 return throwError(() => new Error('Failed to get prediction from server'));
